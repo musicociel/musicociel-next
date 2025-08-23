@@ -1,2 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+	import { asset } from '$app/paths';
+</script>
+
+<div class="navbar bg-base-100 shadow-sm">
+	<img class="me-2 w-12" src={asset('/favicon.svg')} alt="Logo" /> <span class="text-xl">Musicociel</span>
+</div>

@@ -7,6 +7,7 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
+/static/favicon.svg
 
 # OS
 .DS_Store
