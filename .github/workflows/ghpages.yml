@@ -18,8 +18,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run ci
-        env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
