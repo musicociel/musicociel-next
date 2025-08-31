@@ -18,6 +18,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run ci
+        env:
+          MUSICOCIEL_PUBLIC_MICROSOFT_CLIENTID: '${{ vars.MICROSOFT_CLIENTID }}'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -7,6 +7,9 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
+		env: {
+			publicPrefix: 'MUSICOCIEL_PUBLIC_'
+		},
 		adapter: adapter({
 			fallback: '404.html'
 		}),
