@@ -1,18 +1,16 @@
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 import { defineConfig, loadEnv, type PluginOption } from 'vite';
+import { locales } from './project.inlang/settings.json';
 
 const base = (process.env.BASE_PATH ?? '') + '/'; // must be the same as in svelte.config.js
 const emitClientAsset = (fileName: string, source: string | Uint8Array): PluginOption => ({
 	name: 'emitClientAsset',
 	buildStart() {
 		if (this.environment.config.consumer === 'client') {
-			this.emitFile({
-				fileName,
-				type: 'asset',
-				source
-			});
+			this.emitFile({ fileName, type: 'asset', source });
 		}
 	}
 });
@@ -38,9 +36,7 @@ export default defineConfig(({ mode }) => {
 				},
 				base: base,
 				scope: base,
-				kit: {
-					spa: true
-				},
+				kit: { spa: true },
 				manifest: {
 					name: 'Musicociel',
 					short_name: 'Musicociel',
@@ -48,6 +44,17 @@ export default defineConfig(({ mode }) => {
 					background_color: '#ffffff',
 					display: 'standalone'
 				}
+			}),
+			paraglideVitePlugin({
+				project: './project.inlang',
+				outdir: './src/lib/paraglide',
+				strategy: ['url', 'preferredLanguage', 'baseLocale'],
+				urlPatterns: [
+					{
+						pattern: '/:path(.*)?',
+						localized: locales.map((locale) => [locale, `/${locale}/:path(.*)?`])
+					}
+				]
 			})
 		]
 	};

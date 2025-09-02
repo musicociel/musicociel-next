@@ -24,7 +24,8 @@ const config = {
 	kit: {
 		csp: {
 			directives: {
-				'default-src': ['self']
+				'default-src': ['self'],
+				'img-src': ['self', 'data:']
 			}
 		},
 		env: {
