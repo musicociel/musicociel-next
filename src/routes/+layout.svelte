@@ -1,9 +1,11 @@
 <script lang="ts">
-	import '../app.css';
+	import { asset } from '$app/paths';
+	import { onMount } from 'svelte';
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
 	import { registerSW } from 'virtual:pwa-register';
-	import { onMount } from 'svelte';
+	import NavBar from '$lib/NavBar.svelte';
+	import '../app.css';
 
 	let { children } = $props();
 
@@ -23,4 +25,9 @@
 	{@html pwaInfo?.webManifest.linkTag ?? ''}
 </svelte:head>
 
-{@render children?.()}
+<NavBar><img class="me-2 w-12" src={asset('/favicon.svg')} alt="Logo" /> <span class="text-xl">Musicociel</span></NavBar>
+
+<div class="absolute top-0 flex min-h-dvh w-full flex-col">
+	<div class="h-16"></div>
+	{@render children?.()}
+</div>
