@@ -1,5 +1,6 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"language": "Français",
+	"pageNotFound": "Page introuvable",
 	"welcome": "Bienvenue dans Musicociel !"
 }

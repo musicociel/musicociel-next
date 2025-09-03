@@ -3,7 +3,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 import { defineConfig, loadEnv, type PluginOption } from 'vite';
-import { locales } from './project.inlang/settings.json';
+import { locales, baseLocale } from './project.inlang/settings.json';
 
 const base = (process.env.BASE_PATH ?? '') + '/'; // must be the same as in svelte.config.js
 const emitClientAsset = (fileName: string, source: string | Uint8Array): PluginOption => ({
@@ -36,8 +36,9 @@ export default defineConfig(({ mode }) => {
 				},
 				base: base,
 				scope: base,
-				kit: { spa: true },
+				kit: { spa: true, adapterFallback: '404.html', trailingSlash: 'always' },
 				manifest: {
+					lang: baseLocale,
 					name: 'Musicociel',
 					short_name: 'Musicociel',
 					theme_color: '#ffffff',
@@ -51,8 +52,8 @@ export default defineConfig(({ mode }) => {
 				strategy: ['url', 'preferredLanguage', 'baseLocale'],
 				urlPatterns: [
 					{
-						pattern: '/:path(.*)?',
-						localized: locales.map((locale) => [locale, `/${locale}/:path(.*)?`])
+						pattern: `${base}:path(.*)?`,
+						localized: locales.map((locale) => [locale, `${base}${locale}/:path(.*)?`])
 					}
 				]
 			})
