@@ -7,8 +7,6 @@
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
 	import { faLanguage } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
-	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
-	import { pwaInfo } from 'virtual:pwa-info';
 	import { registerSW } from 'virtual:pwa-register';
 	import '../app.css';
 
@@ -18,17 +16,6 @@
 		registerSW();
 	});
 </script>
-
-<svelte:head>
-	{#if pwaAssetsHead.themeColor}
-		<meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
-	{/if}
-	{#each pwaAssetsHead.links as link (link.href)}
-		<link {...link} />
-	{/each}
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html pwaInfo?.webManifest.linkTag ?? ''}
-</svelte:head>
 
 <NavBar>
 	<img class="me-2 w-12" src={asset('/favicon.svg')} alt="Logo" />
