@@ -4,7 +4,8 @@
 	import FaIcon from '$lib/FaIcon.svelte';
 	import NavBar from '$lib/NavBar.svelte';
 	import { m } from '$lib/paraglide/messages';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
+	import { deLocalizeHref, locales, localizeHref } from '$lib/paraglide/runtime';
+	import { hostAbsolute } from '$lib/url';
 	import { faLanguage } from '@fortawesome/free-solid-svg-icons';
 	import { onMount } from 'svelte';
 	import { registerSW } from 'virtual:pwa-register';
@@ -17,6 +18,13 @@
 	});
 </script>
 
+<svelte:head>
+	{#each locales as locale (locale)}
+		<link rel="alternate" href={localizeHref(hostAbsolute(page.url), { locale })} hreflang={locale} />
+	{/each}
+	<link rel="alternate" href={deLocalizeHref(hostAbsolute(page.url))} hreflang="x-default" />
+</svelte:head>
+
 {#if params.locale}
 	<NavBar>
 		<img class="me-2 w-12" src={asset('/favicon.svg')} alt="Logo" />
@@ -25,7 +33,7 @@
 			<button type="button" class="btn m-1"><FaIcon icon={faLanguage} /></button>
 			<ul class="dropdown-content menu z-1 w-52 rounded-box bg-base-100 p-2 shadow-sm">
 				{#each locales as locale (locale)}
-					<li><a data-sveltekit-reload href={localizeHref(page.url.href, { locale })}>{m.language({}, { locale })}</a></li>
+					<li><a data-sveltekit-reload href={localizeHref(hostAbsolute(page.url), { locale })}>{m.language({}, { locale })}</a></li>
 				{/each}
 			</ul>
 		</div>
